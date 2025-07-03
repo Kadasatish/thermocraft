@@ -1,0 +1,15 @@
+export default function handler(req, res) {
+  if (req.method === 'POST') {
+    const paymentData = req.body;
+
+    if (paymentData.status === 'success') {
+      console.log("Payment received for:", paymentData.orderId);
+      return res.status(200).json({ message: 'Payment received successfully.' });
+    } else {
+      return res.status(400).json({ message: 'Payment failed or invalid.' });
+    }
+  } else {
+    res.setHeader('Allow', ['POST']);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
+  }
+        }
